@@ -1,0 +1,51 @@
+{
+  "name": "rvars",
+  "version": "0.0.0",
+  "description": "matchMedia based responsive values in JS",
+  "keywords": [],
+  "author": "Tim Morris <timthewebguy@gmail.com>",
+  "homepage": "https://github.com/tkofh/rvars/tree/main/packages/rvars#readme",
+  "license": "MIT",
+  "sideEffects": false,
+  "type": "module",
+  "main": "./dist/index.cjs",
+  "module": "./dist/index.mjs",
+  "types": "./dist/index.d.ts",
+  "exports": {
+    ".": {
+      "import": "./dist/index.mjs",
+      "require": "./dist/index.cjs",
+      "types": "./dist/index.d.ts"
+    }
+  },
+  "files": [
+    "dist"
+  ],
+  "publishConfig": {
+    "access": "public"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/tkofh/rvars.git"
+  },
+  "scripts": {
+    "lint": "eslint --cache --fix --ext='.ts,.(m|c)?js' .",
+    "format": "prettier --write .",
+    "dev:test-page": "vite ./test/web/",
+    "test": "vite build ./test/web/ && vitest run",
+    "test:watch": "vite build ./test/web/ && vitest",
+    "prepublish": "unbuild"
+  },
+  "devDependencies": {
+    "@types/node": "^18.11.9",
+    "pathe": "^1.0.0",
+    "puppeteer": "^19.3.0",
+    "ufo": "^1.0.0",
+    "unbuild": "^0.9.4",
+    "vite": "^3.2.3",
+    "vitest": "^0.24.3"
+  },
+  "dependencies": {
+    "mitt": "^3.0.0"
+  }
+}
