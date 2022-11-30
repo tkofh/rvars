@@ -1,6 +1,6 @@
 {
   "name": "rvars",
-  "version": "0.0.0",
+  "version": "0.1.0",
   "description": "matchMedia based responsive values in JS",
   "keywords": [],
   "author": "Tim Morris <timthewebguy@gmail.com>",
