@@ -20,18 +20,21 @@ export interface ConditionsDefinition<TBreakpoints extends Breakpoints> {
 export type ResponsiveVariableValue = string | number | boolean | symbol | null | undefined
 
 export type ArrayConditionalValue<TValue extends ResponsiveVariableValue> = Array<TValue>
-export type MappedConditionalValue<TValue extends ResponsiveVariableValue, TBreakpoints extends Breakpoints> = {
+export type MappedConditionalValue<
+  TValue extends ResponsiveVariableValue,
+  TBreakpoints extends Breakpoints
+> = {
   [TBreakpoint in keyof TBreakpoints]?: TValue
 }
 
-export type ConditionalValue<TValue extends ResponsiveVariableValue, TBreakpoints extends Breakpoints> =
-  | TValue
-  | Array<TValue>
-  | {
-      [TBreakpoint in keyof TBreakpoints]?: TValue
-    }
+export type ConditionalValue<
+  TValue extends ResponsiveVariableValue,
+  TBreakpoints extends Breakpoints
+> = TValue | Array<TValue> | Partial<Record<keyof TBreakpoints, TValue>>
 
-export type ExtractSimpleConditionalValue<TConditionalValue extends ConditionalValue<ResponsiveVariableValue, Breakpoints>> = TConditionalValue extends ConditionalValue<infer TValue, Breakpoints> ? TValue : never
+export type ExtractSimpleConditionalValue<
+  TConditionalValue extends ConditionalValue<ResponsiveVariableValue, Breakpoints>
+> = TConditionalValue extends ConditionalValue<infer TValue, Breakpoints> ? TValue : never
 
 export type ConditionState<TBreakpoints extends Breakpoints> = Map<keyof TBreakpoints, boolean>
 
@@ -63,13 +66,13 @@ export interface Conditions<TBreakpoints extends Breakpoints>
 
   readonly normalize: <TValue extends ResponsiveVariableValue>(
     value: ConditionalValue<TValue, TBreakpoints>,
-    defaultValue?: TValue
-  ) => Record<keyof TBreakpoints, TValue | undefined>
+    fallback: TValue
+  ) => Record<keyof TBreakpoints, TValue>
 
   readonly evaluate: <TValue extends ResponsiveVariableValue>(
     value: ConditionalValue<TValue, TBreakpoints>,
-    defaultValue?: TValue | undefined
-  ) => TValue | undefined
+    fallback: TValue
+  ) => TValue
 
   readonly dispose: () => void
 }
@@ -81,15 +84,11 @@ export interface ResponsiveVariableEvents<TValue> {
 
 export interface ResponsiveVariable<
   TValue extends ResponsiveVariableValue,
-  TBreakpoints extends Breakpoints,
-  TDefaultValue extends TValue | undefined = TValue | undefined
+  TBreakpoints extends Breakpoints
 > {
-  readonly current: () => TDefaultValue
+  readonly current: () => TValue
 
-  readonly update: (
-    value: ConditionalValue<TValue, TBreakpoints>,
-    defaultValue?: TValue | undefined
-  ) => TDefaultValue
+  readonly update: (value: ConditionalValue<TValue, TBreakpoints>, fallback: TValue) => TValue
 
   readonly addEventListener: <TEvent extends keyof ResponsiveVariableEvents<TValue>>(
     event: TEvent,

@@ -47,5 +47,6 @@
   },
   "dependencies": {
     "mitt": "^3.0.0"
-  }
+  },
+  "gitHead": "07bed0997f8cc8b574c298e93c2946f288f5b093"
 }

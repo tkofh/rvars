@@ -25,11 +25,17 @@ export const toMediaQueryString = (breakpoint: Breakpoint) => {
   }
 }
 
-export const valueIsArrayConditionalValue = <TValue extends ResponsiveVariableValue, TBreakpoints extends Breakpoints>(
+export const valueIsArrayConditionalValue = <
+  TValue extends ResponsiveVariableValue,
+  TBreakpoints extends Breakpoints
+>(
   value: ConditionalValue<TValue, TBreakpoints>
 ): value is ArrayConditionalValue<TValue> => Array.isArray(value)
 
-export const valueIsMappedConditionalValue = <TValue extends ResponsiveVariableValue, TBreakpoints extends Breakpoints>(
+export const valueIsMappedConditionalValue = <
+  TValue extends ResponsiveVariableValue,
+  TBreakpoints extends Breakpoints
+>(
   conditions: Conditions<TBreakpoints>,
   value: ConditionalValue<TValue, TBreakpoints>
 ): value is MappedConditionalValue<TValue, TBreakpoints> =>
@@ -55,9 +61,9 @@ export const normalizeConditionalValue = <
     for (const [index, breakpointKey] of conditions.responsiveArray
       .slice(0, value.length)
       .entries()) {
-        mappedValue[breakpointKey] = value[index]
-      }
-    } else if (valueIsMappedConditionalValue(conditions, value)) {
+      mappedValue[breakpointKey] = value[index]
+    }
+  } else if (valueIsMappedConditionalValue(conditions, value)) {
     for (const key of breakpointKeys) {
       if (Object.hasOwn(value, key)) {
         mappedValue[key] = value[key]
@@ -67,9 +73,10 @@ export const normalizeConditionalValue = <
     mappedValue[breakpointKeys[0]] = value
   }
 
-
-  for(const [index, breakpointKey] of breakpointKeys.entries()) {
-    mappedValue[breakpointKey] = mappedValue[breakpointKey] ?? (index === 0 ? defaultValue : mappedValue[breakpointKeys[index - 1]])
+  for (const [index, breakpointKey] of breakpointKeys.entries()) {
+    mappedValue[breakpointKey] =
+      mappedValue[breakpointKey] ??
+      (index === 0 ? defaultValue : mappedValue[breakpointKeys[index - 1]])
   }
 
   return mappedValue as TDefaultValue extends undefined

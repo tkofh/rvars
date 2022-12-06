@@ -7,6 +7,7 @@ import type {
   ConditionsDefinition,
   ConditionsEvents,
   ConditionState,
+  ResponsiveVariableValue,
 } from './types'
 import { toMediaQueryString } from './util'
 
@@ -36,7 +37,7 @@ export const defineConditions = <TBreakpoints extends Breakpoints>(
 
       const handler = (event: MediaQueryListEvent) => {
         state.set(name, event.matches)
-        emitter.emit('update', state)
+        emitter.emit('change', state)
       }
       eventHandlers.set(mediaQueryList, handler)
       mediaQueryList.addEventListener('change', handler)
@@ -45,41 +46,40 @@ export const defineConditions = <TBreakpoints extends Breakpoints>(
 
   const responsiveArray = conditions.responsiveArray ?? Object.keys(conditions.breakpoints)
 
-  const normalize = <TValue>(
+  const normalize = <TValue extends ResponsiveVariableValue>(
     value: ConditionalValue<TValue, TBreakpoints>,
-    defaultValue?: TValue
-  ): Record<keyof TBreakpoints, TValue | undefined> => {
+    fallback: TValue
+  ): Record<keyof TBreakpoints, TValue> => {
     const breakpointKeys: (keyof TBreakpoints)[] = Object.keys(conditions.breakpoints)
 
-    let valueAsObject: Record<keyof TBreakpoints, TValue | undefined>
+    let valueAsObject: Partial<Record<keyof TBreakpoints, TValue>>
     if (Array.isArray(value)) {
       valueAsObject = Object.fromEntries(
         responsiveArray
           .slice(0, value.length)
           .map((breakpointKey, index) => [breakpointKey, value[index]])
-      ) as Record<keyof TBreakpoints, TValue | undefined>
-    } else if (
-      typeof value !== 'object' ||
-      value === null ||
-      breakpointKeys.every((breakpointKey) => !(breakpointKey in value))
-    ) {
-      valueAsObject = { [breakpointKeys[0]]: value as TValue } as Record<
-        keyof TBreakpoints,
-        TValue | undefined
+      ) as Partial<Record<keyof TBreakpoints, TValue>>
+    } else if (typeof value !== 'object' || value == null) {
+      valueAsObject = { [breakpointKeys[0]]: value as TValue } as Partial<
+        Record<keyof TBreakpoints, TValue>
       >
     } else {
-      valueAsObject = value as Record<keyof TBreakpoints, TValue | undefined>
+      valueAsObject = value as Partial<Record<keyof TBreakpoints, TValue>>
     }
 
-    return Object.fromEntries(
-      breakpointKeys.reduce<[keyof TBreakpoints, TValue | undefined][]>((entries, key, index) => {
-        entries.push([
-          key,
-          valueAsObject[key] ?? (index === 0 ? defaultValue : entries[entries.length - 1][1]),
-        ])
-        return entries
-      }, [])
-    ) as Record<keyof TBreakpoints, TValue | undefined>
+    // @ts-expect-error building object after initialization to avoid Object.fromEntries()
+    const output: Record<keyof TBreakpoints, TValue | TBaseValue> = {}
+    for (const [index, key] of breakpointKeys.entries()) {
+      if(Object.hasOwn(valueAsObject, key)) {
+        output[key] = valueAsObject[key]
+      } else if(index === 0) {
+        output[key] = fallback
+      } else {
+        output[key] = output[breakpointKeys[index - 1]]
+      }
+    }
+
+    return output
   }
 
   return {
@@ -94,11 +94,11 @@ export const defineConditions = <TBreakpoints extends Breakpoints>(
       emitter.off(event, handler)
     },
     normalize,
-    evaluate: (value, defaultValue) => {
-      const normalized = normalize(value, defaultValue)
+    evaluate: (value, fallback) => {
+      const normalized = normalize(value, fallback)
 
       if (usingFallback) {
-        return (conditions.fallback ? normalized[conditions.fallback] : undefined) ?? defaultValue
+        return conditions.fallback ? normalized[conditions.fallback] : fallback
       } else {
         let matchedBreakpoint: keyof TBreakpoints | undefined
         for (const [breakpoint, breakpointState] of state.entries()) {
@@ -107,7 +107,7 @@ export const defineConditions = <TBreakpoints extends Breakpoints>(
           }
         }
 
-        return matchedBreakpoint != null ? normalized[matchedBreakpoint] : defaultValue
+        return matchedBreakpoint != null ? normalized[matchedBreakpoint] : fallback
       }
     },
     dispose: () => {
