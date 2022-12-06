@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [0.2.0](https://github.com/tkofh/rvars/compare/rvars@0.1.0...rvars@0.2.0) (2022-12-06)
+
+### Features
+
+- **rvars:** createVariable API ([d3d5273](https://github.com/tkofh/rvars/commit/d3d5273037af33a4d5eb2205757eed6e958500b4))
+
 # 0.1.0 (2022-11-30)
 
 ### Features
