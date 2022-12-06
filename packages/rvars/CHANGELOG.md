@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.2.1](https://github.com/tkofh/rvars/compare/rvars@0.2.0...rvars@0.2.1) (2022-12-06)
+
+### Bug Fixes
+
+- **rvars:** export `ResponsiveVariable` and `ResponsiveVariableValue` ([6cf035e](https://github.com/tkofh/rvars/commit/6cf035efeb72f5602dca95289f8e750f21a1112c))
+
 # [0.2.0](https://github.com/tkofh/rvars/compare/rvars@0.1.0...rvars@0.2.0) (2022-12-06)
 
 ### Features
