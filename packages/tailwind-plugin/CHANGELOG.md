@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.2.1](https://github.com/tkofh/rvars/compare/@rvars/tailwind-plugin@0.2.0...@rvars/tailwind-plugin@0.2.1) (2023-01-25)
+
+### Bug Fixes
+
+- **@rvars/tailwind-plugin:** correct package name in warning ([e5b614d](https://github.com/tkofh/rvars/commit/e5b614d53b2ea1d3788a6f154f522d78fdd4d708))
+
 # [0.2.0](https://github.com/tkofh/rvars/compare/@rvars/tailwind-plugin@0.1.0...@rvars/tailwind-plugin@0.2.0) (2022-12-06)
 
 **Note:** Version bump only for package @rvars/tailwind-plugin
