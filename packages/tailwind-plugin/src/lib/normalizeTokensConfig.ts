@@ -13,7 +13,7 @@ const resolveAccessPathTails = (
   const trimmedBase = base.map((segment) => segment.trim())
   const accessPaths: string[][] = []
   if (typeof input === 'boolean') {
-    if (input === true) {
+    if (input) {
       accessPaths.push([...trimmedBase])
     }
   } else if (Array.isArray(input)) {
@@ -56,7 +56,7 @@ export const normalizeTokensConfig = (tokens: TokensConfig, prefix?: string) => 
         if (knownAliases.has(singleTokenConfig.as)) {
           // eslint-disable-next-line no-console
           console.warn(
-            `[@fashionable/tailwind-plugin-theme-tokens]: Duplicate alias '${
+            `[@rvars/tailwind-plugin]: Duplicate alias '${
               singleTokenConfig.as
             }' in ${knownAliases.get(
               singleTokenConfig.as
