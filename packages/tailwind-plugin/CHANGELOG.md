@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [0.4.0](https://github.com/tkofh/rvars/compare/@rvars/tailwind-plugin@0.3.0...@rvars/tailwind-plugin@0.4.0) (2023-01-31)
+
+### Features
+
+- **@rvars/tailwind-plugin:** reset screen speciifc props to allow optimized assignment ([937364d](https://github.com/tkofh/rvars/commit/937364d513037a9ba76fdab8363177ec96db59b6))
+
 # [0.3.0](https://github.com/tkofh/rvars/compare/@rvars/tailwind-plugin@0.2.1...@rvars/tailwind-plugin@0.3.0) (2023-01-31)
 
 ### Bug Fixes
