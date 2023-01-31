@@ -3,6 +3,16 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [0.3.0](https://github.com/tkofh/rvars/compare/rvars@0.2.1...rvars@0.3.0) (2023-01-31)
+
+### Bug Fixes
+
+- **rvars:** fix tests and remove unused code ([cb498fd](https://github.com/tkofh/rvars/commit/cb498fd6d3efbe61ff440d3baca6754df9196592))
+
+### Features
+
+- **rvars:** fill, normalize, optimize, accept undefined ([d29648c](https://github.com/tkofh/rvars/commit/d29648cf57e0db11ed6c2dffe7913047958f765d))
+
 ## [0.2.1](https://github.com/tkofh/rvars/compare/rvars@0.2.0...rvars@0.2.1) (2022-12-06)
 
 ### Bug Fixes

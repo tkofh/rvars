@@ -1,6 +1,6 @@
 {
   "name": "@rvars/tailwind-plugin",
-  "version": "0.2.1",
+  "version": "0.3.0",
   "description": "Responsive Variables Tailwind Plugin",
   "keywords": [],
   "author": "Tim Morris <timthewebguy@gmail.com>",
