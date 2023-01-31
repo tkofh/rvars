@@ -13,7 +13,7 @@ export const createVariable = <
   TBreakpoints extends Breakpoints = Breakpoints
 >(
   conditions: Conditions<TBreakpoints>,
-  value: ConditionalValue<TValue, TBreakpoints>,
+  value: ConditionalValue<TValue, TBreakpoints>
 ): ResponsiveVariable<TValue, TBreakpoints> => {
   let internalValue = value
   let current = conditions.evaluate(internalValue)

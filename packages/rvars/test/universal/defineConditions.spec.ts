@@ -14,7 +14,7 @@ describe('defineConditions Universal', () => {
       defineConditions({
         breakpoints: { mobile: {}, tablet: { min: 768 } },
         fallback: 'mobile',
-      }).evaluate({ mobile: 'mobile', tablet: 'tablet' }, 'default')
+      }).evaluate({ mobile: 'mobile', tablet: 'tablet' })
     ).toBe('mobile')
   })
 
@@ -25,8 +25,8 @@ describe('defineConditions Universal', () => {
       defineConditions({
         breakpoints: { mobile: {}, tablet: { min: 768 } },
         fallback: 'mobile',
-      }).evaluate({ tablet: 'tablet' }, 'default')
-    ).toBe('default')
+      }).evaluate({ tablet: 'tablet' })
+    ).toBeUndefined()
 
     expect(
       defineConditions({
@@ -36,14 +36,14 @@ describe('defineConditions Universal', () => {
     ).toBe(undefined)
   })
 
-  test('it uses the default value int he absence of a defined default fallback condition', ({
+  test('it uses the default value in the absence of a defined default fallback condition', ({
     expect,
   }) => {
     expect(
       defineConditions({
         breakpoints: { mobile: {}, tablet: { min: 768 } },
-      }).evaluate({ mobile: 'mobile', tablet: 'tablet' }, 'default')
-    ).toBe('default')
+      }).evaluate({ mobile: 'mobile', tablet: 'tablet' })
+    ).toBeUndefined()
 
     expect(
       defineConditions({

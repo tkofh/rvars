@@ -9,7 +9,7 @@ import type {
   ConditionState,
   ResponsiveVariableValue,
 } from './types'
-import { toMediaQueryString } from './util'
+import { toMediaQueryString, valueIsArrayConditionalValue } from './util'
 
 export const defineConditions = <TBreakpoints extends Breakpoints>(
   conditions: ConditionsDefinition<TBreakpoints>
@@ -19,9 +19,7 @@ export const defineConditions = <TBreakpoints extends Breakpoints>(
 
   const breakpointKeys: (keyof TBreakpoints)[] = Object.keys(conditions.breakpoints)
 
-  const state = new Map(
-    breakpointKeys.map((key) => [key, false])
-  ) as ConditionState<TBreakpoints>
+  const state = new Map(breakpointKeys.map((key) => [key, false])) as ConditionState<TBreakpoints>
 
   const emitter = mitt<ConditionsEvents<TBreakpoints>>()
 
@@ -52,7 +50,7 @@ export const defineConditions = <TBreakpoints extends Breakpoints>(
     value: ConditionalValue<TValue, TBreakpoints>
   ): Partial<Record<keyof TBreakpoints, TValue>> => {
     let normalized: Partial<Record<keyof TBreakpoints, TValue>>
-    if (Array.isArray(value)) {
+    if (valueIsArrayConditionalValue(value)) {
       normalized = Object.fromEntries(
         responsiveArray
           .slice(0, value.length)
@@ -95,8 +93,8 @@ export const defineConditions = <TBreakpoints extends Breakpoints>(
     const normalized = normalize(value)
 
     const output = {} as Partial<Record<keyof TBreakpoints, TValue>>
-    for(const [index, key] of breakpointKeys.entries()) {
-      if(index === 0 || normalized[key] !== output[breakpointKeys[index - 1]]) {
+    for (const [index, key] of breakpointKeys.entries()) {
+      if (index === 0 || normalized[key] !== output[breakpointKeys[index - 1]]) {
         output[key] = normalized[key]
       } else {
         output[key] = undefined

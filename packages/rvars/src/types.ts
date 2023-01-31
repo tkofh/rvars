@@ -30,7 +30,7 @@ export type MappedConditionalValue<
 export type ConditionalValue<
   TValue extends ResponsiveVariableValue,
   TBreakpoints extends Breakpoints
-> = TValue | Array<TValue> | Partial<Record<keyof TBreakpoints, TValue>>
+> = TValue | ReadonlyArray<TValue> | Partial<Record<keyof TBreakpoints, TValue>>
 
 export type ExtractConditionalValue<
   TValue extends ConditionalValue<ResponsiveVariableValue, Breakpoints>
@@ -69,7 +69,7 @@ export interface Conditions<TBreakpoints extends Breakpoints>
   ) => void
 
   readonly normalize: <TValue extends ResponsiveVariableValue>(
-    value: ConditionalValue<TValue, TBreakpoints>,
+    value: ConditionalValue<TValue, TBreakpoints>
   ) => Partial<Record<keyof TBreakpoints, TValue>>
 
   readonly fill: <TValue extends ResponsiveVariableValue>(
@@ -82,7 +82,7 @@ export interface Conditions<TBreakpoints extends Breakpoints>
   ) => Partial<Record<keyof TBreakpoints, TValue>>
 
   readonly evaluate: <TValue extends ResponsiveVariableValue>(
-    value: ConditionalValue<TValue, TBreakpoints>,
+    value: ConditionalValue<TValue, TBreakpoints>
   ) => TValue | undefined
 
   readonly dispose: () => void
