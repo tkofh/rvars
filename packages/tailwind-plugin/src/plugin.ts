@@ -28,7 +28,10 @@ const plugin = <TAdditionalConfigKeys extends string = never>(
             result[`--i-${varName}-${screen.name}`] = `var(--${varName}-${
               screen.name
             }, var(--i-${varName}-${index === 0 ? baseBreakpointName : screens[index - 1].name}))`
+          }
 
+          // split up so that tailwind groups all custom property definitions in one class declaration
+          for (const screen of screens) {
             result[`@media ${toMediaQueryString(screen)}`] = {
               [`--${varName}`]: `var(--i-${varName}-${screen.name})`,
             }
