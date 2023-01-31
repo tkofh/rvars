@@ -72,7 +72,7 @@ export const getPluginScreens = (
   for (const [index, screen] of screens.entries()) {
     if (screen == null) {
       throw new Error(
-        `[@fashionable/tailwind-rvars]: Missing breakpoint ${
+        `[@rvars/tailwind-plugin]: Missing breakpoint ${
           options.orderedBreakpoints![index]
         }. Please make sure this breakpoint is defined in the Tailwind Config's theme.screens map.`
       )
@@ -84,7 +84,7 @@ export const getPluginScreens = (
       )
     ) {
       throw new Error(
-        '[@fashionable/tailwind-rvars]: max-width or raw screen detected. This plugin only supports simple min-width media queries. Please specify which screens to include in the options passed to this plugin.'
+        '[@rvars/tailwind-plugin]: max-width or raw screen detected. This plugin only supports simple min-width media queries. Please specify which screens to include in the options passed to this plugin.'
       )
     }
   }

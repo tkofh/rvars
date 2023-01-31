@@ -1,20 +1,20 @@
-# Fashionable Tailwind Plugin
+# rvars Tailwind Plugin
 
-All `@fashionable` TailwindCSS plugins in one
+All `@rvars` TailwindCSS plugins in one
 
 ## Installation
 
-Install `@fashionable/tailwind-plugin` with your favorite package manager:
+Install `@rvars/tailwind-plugin` with your favorite package manager:
 
 ```sh
 # with pnpm
-pnpm add @fashionable/tailwind-plugin
+pnpm add @rvars/tailwind-plugin
 
 # or yarn
-yarn add @fashionable/tailwind-plugin
+yarn add @rvars/tailwind-plugin
 
 # or npm
-npm install @fashionable/tailwind-plugin
+npm install @rvars/tailwind-plugin
 ```
 
 Then add it to your `tailwind.config`:
@@ -22,7 +22,7 @@ Then add it to your `tailwind.config`:
 ```javascript
 // tailwind.config.cjs
 
-const fashionable = require('@fashionable/tailwind-plugin')
+const rvars = require('@rvars/tailwind-plugin')
 
 /** @type {import('tailwindcss').Config} */
 module.exports = {
@@ -31,7 +31,7 @@ module.exports = {
     extend: {},
   },
   plugins: [
-    fashionable({
+    rvars({
       rvars: {
         orderedBreakpoints: ['sm', 'md', 'lg', 'xl'],
       },
@@ -49,12 +49,12 @@ For details about configuring each plugin, please visit that plugins home page (
 
 Included plugins & config keys:
 
-| Plugin                                      | Config Key    | Links                                                 |
-| ------------------------------------------- | ------------- | ----------------------------------------------------- |
-| `@fashionable/tailwind-plugin-rvars`        | `rvars`       | [GitHub](rvars-github) [NPM](rvars-npm)               |
-| `@fashionable/tailwind-plugin-theme-tokens` | `themeTokens` | [GitHub](theme-tokens-github) [NPM](theme-tokens-npm) |
+| Plugin                                | Config Key    | Links                                                 |
+| ------------------------------------- | ------------- | ----------------------------------------------------- |
+| `@rvars/tailwind-plugin-rvars`        | `rvars`       | [GitHub](rvars-github) [NPM](rvars-npm)               |
+| `@rvars/tailwind-plugin-theme-tokens` | `themeTokens` | [GitHub](theme-tokens-github) [NPM](theme-tokens-npm) |
 
-[rvars-github]: "https://github.com/tkofh/fashionable/tree/main/packages/tailwind-plugin-rvars"
-[rvars-npm]: "https://www.npmjs.com/package/@fashionable/tailwind-plugin-rvars"
-[theme-tokens-github]: "https://github.com/tkofh/fashionable/tree/main/packages/tailwind-plugin-theme-tokens"
-[theme-tokens-npm]: "https://www.npmjs.com/package/@fashionable/tailwind-plugin-theme-tokens"
+[rvars-github]: "https://github.com/tkofh/rvars/tree/main/packages/tailwind-plugin-rvars"
+[rvars-npm]: "https://www.npmjs.com/package/@rvars/tailwind-plugin-rvars"
+[theme-tokens-github]: "https://github.com/tkofh/rvars/tree/main/packages/tailwind-plugin-theme-tokens"
+[theme-tokens-npm]: "https://www.npmjs.com/package/@rvars/tailwind-plugin-theme-tokens"

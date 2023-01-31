@@ -24,7 +24,7 @@ export const resolveThemeTokens = (
     if (tailwindThemeValue == null) {
       // eslint-disable-next-line no-console
       console.warn(
-        `[@fashionable/tailwind-plugin-theme-tokens]: Tailwind Theme Config Path '${configPath}' resolved to undefined. Skipping (would have been labeled '${label}')`
+        `[@rvars/tailwind-plugin]: Tailwind Theme Config Path '${configPath}' resolved to undefined. Skipping (would have been labeled '${label}')`
       )
     } else {
       tokenEntries.push(
