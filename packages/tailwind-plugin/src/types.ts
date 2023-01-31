@@ -61,7 +61,6 @@ export interface TokenAccessPath {
   tail: string[]
 }
 
-
 // export interface NamedThemeOptions<TAdditionalConfigKeys extends string = never>
 //   extends ThemeOptions<TAdditionalConfigKeys> {
 //   name: string

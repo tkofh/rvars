@@ -3,7 +3,7 @@ import { fileURLToPath } from 'url'
 // import { outdent } from 'outdent'
 import postcss from 'postcss'
 import tailwindcss from 'tailwindcss'
-import {outdent} from 'outdent'
+import { outdent } from 'outdent'
 import type { Config } from 'tailwindcss/types'
 import { describe, expect, test } from 'vitest'
 import type { PluginOptions } from '../src'
@@ -34,7 +34,10 @@ const run = <TAdditionalConfigKeys extends string = never>(
 
 describe('plugin', () => {
   test('it works', async ({ expect }) => {
-    expect(await run({ orderedBreakpoints: ['sm', 'md', 'lg', 'xl', '2xl'], tokens: { spacing: ['0'] }}).css).toBe(outdent`
+    expect(
+      await run({ orderedBreakpoints: ['sm', 'md', 'lg', 'xl', '2xl'], tokens: { spacing: ['0'] } })
+        .css
+    ).toBe(outdent`
       :root {
           --spacing-0: 0px
       }

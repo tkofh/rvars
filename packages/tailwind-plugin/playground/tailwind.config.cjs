@@ -12,7 +12,7 @@ module.exports = {
       orderedBreakpoints: ['sm', 'md', 'lg', 'xl'],
       baseBreakpointName: 'xs',
       tokens: {
-        spacing: true
+        spacing: true,
       },
     }),
   ],

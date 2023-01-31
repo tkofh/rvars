@@ -17,8 +17,10 @@ export const defineConditions = <TBreakpoints extends Breakpoints>(
   const usingFallback = typeof window === 'undefined'
   const eventHandlers = new Map<MediaQueryList, (event: MediaQueryListEvent) => void>()
 
+  const breakpointKeys: (keyof TBreakpoints)[] = Object.keys(conditions.breakpoints)
+
   const state = new Map(
-    Object.keys(conditions.breakpoints).map((key) => [key, false])
+    breakpointKeys.map((key) => [key, false])
   ) as ConditionState<TBreakpoints>
 
   const emitter = mitt<ConditionsEvents<TBreakpoints>>()
@@ -44,42 +46,64 @@ export const defineConditions = <TBreakpoints extends Breakpoints>(
     }
   }
 
-  const responsiveArray = conditions.responsiveArray ?? Object.keys(conditions.breakpoints)
+  const responsiveArray = conditions.responsiveArray ?? breakpointKeys
 
   const normalize = <TValue extends ResponsiveVariableValue>(
-    value: ConditionalValue<TValue, TBreakpoints>,
-    fallback: TValue
-  ): Record<keyof TBreakpoints, TValue> => {
-    const breakpointKeys: (keyof TBreakpoints)[] = Object.keys(conditions.breakpoints)
-
-    let valueAsObject: Partial<Record<keyof TBreakpoints, TValue>>
+    value: ConditionalValue<TValue, TBreakpoints>
+  ): Partial<Record<keyof TBreakpoints, TValue>> => {
+    let normalized: Partial<Record<keyof TBreakpoints, TValue>>
     if (Array.isArray(value)) {
-      valueAsObject = Object.fromEntries(
+      normalized = Object.fromEntries(
         responsiveArray
           .slice(0, value.length)
           .map((breakpointKey, index) => [breakpointKey, value[index]])
       ) as Partial<Record<keyof TBreakpoints, TValue>>
-    } else if (typeof value !== 'object' || value == null) {
-      valueAsObject = { [breakpointKeys[0]]: value as TValue } as Partial<
+    } else if (typeof value !== 'object') {
+      normalized = { [breakpointKeys[0]]: value as TValue } as Partial<
         Record<keyof TBreakpoints, TValue>
       >
     } else {
-      valueAsObject = value as Partial<Record<keyof TBreakpoints, TValue>>
+      normalized = value
     }
 
-    // @ts-expect-error building object after initialization to avoid Object.fromEntries()
-    const output: Record<keyof TBreakpoints, TValue | TBaseValue> = {}
+    return normalized
+  }
+
+  const fill = <TValue extends ResponsiveVariableValue>(
+    value: ConditionalValue<TValue, TBreakpoints>,
+    fill: TValue
+  ): Record<keyof TBreakpoints, TValue> => {
+    const normalized = normalize(value)
+
+    const output = {} as Record<keyof TBreakpoints, TValue>
     for (const [index, key] of breakpointKeys.entries()) {
-      if(Object.hasOwn(valueAsObject, key)) {
-        output[key] = valueAsObject[key]
-      } else if(index === 0) {
-        output[key] = fallback
+      if (key in normalized && normalized[key] != null) {
+        output[key] = normalized[key]!
+      } else if (index === 0) {
+        output[key] = fill
       } else {
         output[key] = output[breakpointKeys[index - 1]]
       }
     }
 
     return output
+  }
+
+  const optimize = <TValue extends ResponsiveVariableValue>(
+    value: ConditionalValue<TValue, TBreakpoints>
+  ): Partial<Record<keyof TBreakpoints, TValue>> => {
+    const normalized = normalize(value)
+
+    const output = {} as Partial<Record<keyof TBreakpoints, TValue>>
+    for(const [index, key] of breakpointKeys.entries()) {
+      if(index === 0 || normalized[key] !== output[breakpointKeys[index - 1]]) {
+        output[key] = normalized[key]
+      } else {
+        output[key] = undefined
+      }
+    }
+
+    return normalized
   }
 
   return {
@@ -94,11 +118,13 @@ export const defineConditions = <TBreakpoints extends Breakpoints>(
       emitter.off(event, handler)
     },
     normalize,
-    evaluate: (value, fallback) => {
-      const normalized = normalize(value, fallback)
+    fill,
+    optimize,
+    evaluate: (value) => {
+      const normalized = normalize(value)
 
       if (usingFallback) {
-        return conditions.fallback ? normalized[conditions.fallback] : fallback
+        return conditions.fallback ? normalized[conditions.fallback] : undefined
       } else {
         let matchedBreakpoint: keyof TBreakpoints | undefined
         for (const [breakpoint, breakpointState] of state.entries()) {
@@ -107,7 +133,7 @@ export const defineConditions = <TBreakpoints extends Breakpoints>(
           }
         }
 
-        return matchedBreakpoint != null ? normalized[matchedBreakpoint] : fallback
+        return matchedBreakpoint != null ? normalized[matchedBreakpoint] : undefined
       }
     },
     dispose: () => {

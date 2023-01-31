@@ -12,7 +12,11 @@ const expandThemeValues = (prefix: string, values: TailwindThemeValue): [string,
   }
 }
 
-export const resolveThemeTokens = (pluginAPI: PluginAPI, tokens: TokensConfig, prefix: string | undefined) => {
+export const resolveThemeTokens = (
+  pluginAPI: PluginAPI,
+  tokens: TokensConfig,
+  prefix: string | undefined
+) => {
   const tokenEntries: [string, string][] = []
 
   for (const [label, configPath] of normalizeTokensConfig(tokens, prefix)) {

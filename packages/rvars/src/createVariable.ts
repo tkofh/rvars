@@ -14,16 +14,14 @@ export const createVariable = <
 >(
   conditions: Conditions<TBreakpoints>,
   value: ConditionalValue<TValue, TBreakpoints>,
-  base: TValue
 ): ResponsiveVariable<TValue, TBreakpoints> => {
   let internalValue = value
-  let internalBase = base
-  let current = conditions.evaluate(internalValue, internalBase)
+  let current = conditions.evaluate(internalValue)
 
   const emitter = mitt<ResponsiveVariableEvents<TValue>>()
 
   const onChange = () => {
-    current = conditions.evaluate(internalValue, internalBase)
+    current = conditions.evaluate(internalValue)
     emitter.emit('change', current)
   }
 
@@ -31,9 +29,8 @@ export const createVariable = <
 
   return {
     current: () => current,
-    update: (value: ConditionalValue<TValue, TBreakpoints>, base: TValue) => {
+    update: (value: ConditionalValue<TValue, TBreakpoints>) => {
       internalValue = value
-      internalBase = base
       onChange()
       return current
     },

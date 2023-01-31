@@ -49,9 +49,9 @@ export const normalizeTokensConfig = (tokens: TokensConfig, prefix?: string) => 
       ? tokenConfig
       : [tokenConfig]) {
       if (configIsAliasedConfig(singleTokenConfig)) {
-        const labelBase = (
-          prefix ? [prefix, singleTokenConfig.as] : [singleTokenConfig.as]
-        ).map((segment) => segment.trim())
+        const labelBase = (prefix ? [prefix, singleTokenConfig.as] : [singleTokenConfig.as]).map(
+          (segment) => segment.trim()
+        )
 
         if (knownAliases.has(singleTokenConfig.as)) {
           // eslint-disable-next-line no-console
@@ -70,9 +70,9 @@ export const normalizeTokensConfig = (tokens: TokensConfig, prefix?: string) => 
           entries.push([[...labelBase, ...path].join('-'), [tailwindConfigKey, ...path].join('.')])
         }
       } else {
-        const labelBase = (
-          prefix ? [prefix, tailwindConfigKey] : [tailwindConfigKey]
-        ).map((segment) => segment.trim())
+        const labelBase = (prefix ? [prefix, tailwindConfigKey] : [tailwindConfigKey]).map(
+          (segment) => segment.trim()
+        )
         for (const path of resolveAccessPathTails(singleTokenConfig)) {
           entries.push([
             [...labelBase, ...path].join('-'),
