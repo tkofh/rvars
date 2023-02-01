@@ -18,7 +18,7 @@ const plugin = <TAdditionalConfigKeys extends string = never>(
 
           const result: Record<string, string | Record<string, string>> = {}
 
-          result[`--${varName}-${baseBreakpointName}`] = `initial`
+          result[`--${varName}-${baseBreakpointName}`] = `unset`
           result[`--i-${varName}-${baseBreakpointName}`] = defaultValue
             ? `var(--${varName}-${baseBreakpointName}, ${defaultValue})`
             : `var(--${varName}-${baseBreakpointName})`
@@ -26,7 +26,7 @@ const plugin = <TAdditionalConfigKeys extends string = never>(
           result[`--${varName}`] = `var(--i-${varName}-${baseBreakpointName})`
 
           for (const [index, screen] of screens.entries()) {
-            result[`--${varName}-${screen.name}`] = `inital`
+            result[`--${varName}-${screen.name}`] = `unset`
             result[`--i-${varName}-${screen.name}`] = `var(--${varName}-${
               screen.name
             }, var(--i-${varName}-${index === 0 ? baseBreakpointName : screens[index - 1].name}))`
