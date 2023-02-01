@@ -11,16 +11,16 @@
 }
 
 .rvar-\[gap\] {
-  --gap-xs: unset;
+  --gap-xs: initial;
   --i-gap-xs: var(--gap-xs);
   --gap: var(--i-gap-xs);
-  --gap-sm: unset;
+  --gap-sm: initial;
   --i-gap-sm: var(--gap-sm, var(--i-gap-xs));
-  --gap-md: unset;
+  --gap-md: initial;
   --i-gap-md: var(--gap-md, var(--i-gap-sm));
-  --gap-lg: unset;
+  --gap-lg: initial;
   --i-gap-lg: var(--gap-lg, var(--i-gap-md));
-  --gap-xl: unset;
+  --gap-xl: initial;
   --i-gap-xl: var(--gap-xl, var(--i-gap-lg));
 }
 
