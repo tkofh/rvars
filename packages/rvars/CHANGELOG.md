@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.3.2](https://github.com/tkofh/rvars/compare/rvars@0.3.1...rvars@0.3.2) (2023-02-01)
+
+### Bug Fixes
+
+- **rvars:** remove duplicate defined keys in optimize ([a74da6b](https://github.com/tkofh/rvars/commit/a74da6b8f0851995c75676f5286fecf892ecdf78))
+
 ## [0.3.1](https://github.com/tkofh/rvars/compare/rvars@0.3.0...rvars@0.3.1) (2023-02-01)
 
 ### Bug Fixes
