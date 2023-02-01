@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.3.1](https://github.com/tkofh/rvars/compare/rvars@0.3.0...rvars@0.3.1) (2023-02-01)
+
+### Bug Fixes
+
+- **rvars:** return optimized value when optimizing ([c579944](https://github.com/tkofh/rvars/commit/c579944121762944fffff3547d6b9fdb5c5b1733))
+
 # [0.3.0](https://github.com/tkofh/rvars/compare/rvars@0.2.1...rvars@0.3.0) (2023-01-31)
 
 ### Bug Fixes
