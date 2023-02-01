@@ -9,7 +9,7 @@ import type {
   ConditionState,
   ResponsiveVariableValue,
 } from './types'
-import { toMediaQueryString, valueIsArrayConditionalValue } from './util'
+import {toMediaQueryString, valueIsArrayConditionalValue} from './util'
 
 export const defineConditions = <TBreakpoints extends Breakpoints>(
   conditions: ConditionsDefinition<TBreakpoints>
@@ -57,7 +57,7 @@ export const defineConditions = <TBreakpoints extends Breakpoints>(
           .map((breakpointKey, index) => [breakpointKey, value[index]])
       ) as Partial<Record<keyof TBreakpoints, TValue>>
     } else if (typeof value !== 'object') {
-      normalized = { [breakpointKeys[0]]: value as TValue } as Partial<
+      normalized = {[breakpointKeys[0]]: value as TValue} as Partial<
         Record<keyof TBreakpoints, TValue>
       >
     } else {
@@ -94,14 +94,12 @@ export const defineConditions = <TBreakpoints extends Breakpoints>(
 
     const output = {} as Partial<Record<keyof TBreakpoints, TValue>>
     for (const [index, key] of breakpointKeys.entries()) {
-      if (index === 0 || normalized[key] !== output[breakpointKeys[index - 1]]) {
+      if (index === 0 || (normalized[key] !== output[breakpointKeys[index - 1]] && normalized[key] != null)) {
         output[key] = normalized[key]
-      } else {
-        output[key] = undefined
       }
     }
 
-    return normalized
+    return output
   }
 
   return {

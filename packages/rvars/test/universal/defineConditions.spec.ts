@@ -51,4 +51,14 @@ describe('defineConditions Universal', () => {
       }).evaluate({ mobile: 'mobile', tablet: 'tablet' })
     ).toBe(undefined)
   })
+
+  test('it optimizes values', ({ expect }) => {
+    const conditions = defineConditions({
+      breakpoints: { mobile: {}, tablet: { min: 768 }, laptop: { min: 1024 }, desktop: { min: 1280 }},
+      responsiveArray: ['mobile', 'tablet', 'laptop', 'desktop']
+    })
+
+    expect(conditions.optimize('foo')).toStrictEqual({ mobile: 'foo' })
+    expect(conditions.optimize(['foo', 'foo', 'bar'])).toStrictEqual({ mobile: 'foo',  laptop: 'bar' })
+  })
 })
