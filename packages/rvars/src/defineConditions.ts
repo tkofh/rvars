@@ -93,10 +93,13 @@ export const defineConditions = <TBreakpoints extends Breakpoints>(
     const normalized = normalize(value)
 
     const output = {} as Partial<Record<keyof TBreakpoints, TValue>>
-    for (const [index, key] of breakpointKeys.entries()) {
-      if (index === 0 || (normalized[key] !== output[breakpointKeys[index - 1]] && normalized[key] != null)) {
+    let previousValue: TValue | undefined
+    for (const key of breakpointKeys) {
+      if(normalized[key] !== previousValue && normalized[key] != null) {
         output[key] = normalized[key]
+        previousValue = normalized[key]
       }
+
     }
 
     return output
