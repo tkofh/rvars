@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.4.1](https://github.com/tkofh/rvars/compare/@rvars/tailwind-plugin@0.4.0...@rvars/tailwind-plugin@0.4.1) (2023-02-01)
+
+### Bug Fixes
+
+- **@rvars/tailwind-plugin:** use initial rather than empty string ([a0626b6](https://github.com/tkofh/rvars/commit/a0626b69bd8375973512d5f8544c9ffc02c07fd8))
+
 # [0.4.0](https://github.com/tkofh/rvars/compare/@rvars/tailwind-plugin@0.3.0...@rvars/tailwind-plugin@0.4.0) (2023-01-31)
 
 ### Features
